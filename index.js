@@ -1,12 +1,9 @@
-const { Player } = require("./player");
+const { Game } = require("./game");
 
 
-const player = new Player("Player 1", "X");
+const game = new Game("Player 1", "X", "Player 2", "O");
 
-const emptySlots = [
-  ["X", ".", "."],
-  ["O", ".", "."],
-  [".", ".", "."]
-];
 
-console.log(player.promptPlayer(emptySlots));
+const play = game.play();
+
+console.log(play);

@@ -5,7 +5,14 @@ const { Player } = require("../player");
 jest.mock("prompt-sync", () => {
     const mockPrompt = jest.fn();
     // Define the return values for the mock
-    mockPrompt.mockReturnValueOnce("0").mockReturnValueOnce("2");
+    mockPrompt
+        .mockReturnValueOnce("5")
+        .mockReturnValueOnce("5")
+        .mockReturnValueOnce("0")
+        .mockReturnValueOnce("0")
+        .mockReturnValueOnce("0")
+        .mockReturnValueOnce("2")
+    
     return () => mockPrompt;
 });
 
@@ -92,7 +99,7 @@ describe("Player Class", () => {
         expect(Player.prototype.promptPlayer.length).toBe(1);
     });
 
-    it("promptPlayer returns { row, col, mark }", () => {
+    it("promptPlayer runs forever until user provides correct row can col values finally promptPlayer returns { row, col, mark }", () => {
         // // Arrange
         const mockPrompt = require('prompt-sync')();
         // By adding this here and removing it from the top breaks this test!
@@ -101,8 +108,12 @@ describe("Player Class", () => {
         const result = player.promptPlayer(emptySlots);
 
         // Test the mockPrompt off prompt-sync
-        expect(mockPrompt()).toBe("0"); // First call
-        expect(mockPrompt()).toBe("2"); // Second call
+        expect(mockPrompt()).toBe("5");
+        expect(mockPrompt()).toBe("5");
+        expect(mockPrompt()).toBe("0");
+        expect(mockPrompt()).toBe("0");
+        expect(mockPrompt()).toBe("0");
+        expect(mockPrompt()).toBe("2");
 
         // Assign
         expect(result).toEqual({
@@ -112,63 +123,4 @@ describe("Player Class", () => {
         });
     });
 
-    xit("promptPlayer runs forever if user does not provide row col values for an empty slot", () => {
-        // Arrange
-        const mockPrompt = require("prompt-sync")();
-
-        // Act
-        mockPrompt
-            .mockReturnValueOnce(5)
-            .mockReturnValueOnce(5)
-            .mockReturnValueOnce(0)
-            .mockReturnValueOnce(0)
-            .mockReturnValueOnce(0)
-            .mockReturnValueOnce(2)
-
-        const result = player.promptPlayer(emptySlots);
-
-        // Assign
-        // Test the mockPrompt off prompt-sync
-        expect(mockPrompt()).toBe("5"); // First call
-        expect(mockPrompt()).toBe("5"); // Second call
-        expect(mockPrompt()).toBe("0"); // First call
-        expect(mockPrompt()).toBe("0"); // First call
-        expect(mockPrompt()).toBe("0"); // First call
-        expect(mockPrompt()).toBe("2"); // First call
-
-        expect(result).toEqual({
-            row: 0,
-            col: 2,
-            mark: "X"
-        });
-
-
-    })
-
-
 })
-
-
-
-/*
-    METHOD PROMPT_PLAYER(emptySlotIndexes):
-        // PROMPT PLAYER TO MAKE A MOVE
-
-        CONSOLE.LOG MAKE A MOVE from emptySlotIndexes 
-
-        row = prompt "Enter the row number (0, 1, or 2): "
-        col = prompt "Enter the column number (0, 1, or 2): "
-
-        checkMark = this.INVALID_OPTION(emptySlotIndexes, row, col)
-        
-        if checkMark:
-            CONSOLE.LOG "Invalid move. Try again."
-            console.log() // create a new line
-            this.PROMPT_PLAYER(emptySlotIndexes)
-        else:
-            return {
-                newMarkIndex { row, column }
-                markType: PLAYER_MARK
-            }
-    END MEHTOD
-    */

@@ -3,7 +3,7 @@ const { Board } = require("../board");
 
 let board;
 
-xdescribe("Board Class", () => {
+describe("Board Class", () => {
     beforeEach(() => {
         board = new Board();
     });
@@ -54,7 +54,7 @@ xdescribe("Board Class", () => {
 
         expect(board.winCondition instanceof Function).toBe(true);
 
-    })
+    });
 
     each([
         [true, [[".", ".", "X"], [".", ".", "X"], [".", ".", "X"]]],
@@ -66,24 +66,4 @@ xdescribe("Board Class", () => {
         board.board = boardState;
         expect(board.winCondition()).toBe(expected);
     });
-})
-
-/*
-    METHOD WIN_CONDITION():
-        START LOOP
-        FOR EACH R in ROW:
-            IF (this.BOARD[i][0] === this.BOARD[i][1] === this.BOARD[i][2]) && !== EMPTY:
-                RETURN true
-            IF (this.BOARD[0][i] == this.BOARD[1][i] == this.BOARD[2][i]) && !== EMPTY:
-                RETURN true
-        END LOOP
-
-        # Check diagonals
-        START IF
-        IF (this.BOARD[0][0] === this.BOARD[1][1] === this.BOARD[2][2]) && !== EMPTY:
-            RETURN true
-        IF (this.BOARD[0][2] === this.BOARD[1][1] === this.BOARD[2][0]) && !== EMPTY:
-            RETURN true
-        END IF
-    END MEHTOD
-*/
+});

@@ -39,41 +39,16 @@ class Player {
             }
         }
     }
+
+    win() {
+        return `${this.name} has won!`
+    }
+
+    lose() {
+        return `${this.name} has lost!`
+    }
+
 }
-
-
-/*
-
-    METHOD INVALID_OPTION(emptySlotIndexes, row, col):
-        if row, col not in emptySlotIndexes:
-            return true
-        return false
-    END MEHTOD  
-
-*/
-
-/*
-    METHOD PROMPT_PLAYER(emptySlotIndexes):
-        // PROMPT PLAYER TO MAKE A MOVE
-
-        CONSOLE.LOG MAKE A MOVE from emptySlotIndexes 
-
-        row = prompt "Enter the row number (0, 1, or 2): "
-        col = prompt "Enter the column number (0, 1, or 2): "
-
-        checkMark = this.INVALID_OPTION(emptySlotIndexes, row, col)
-        
-        if checkMark:
-            CONSOLE.LOG "Invalid move. Try again."
-            console.log() // create a new line
-            this.PROMPT_PLAYER(emptySlotIndexes)
-        else:
-            return {
-                newMarkIndex { row, column }
-                markType: PLAYER_MARK
-            }
-    END MEHTOD
-    */
 
 module.exports = {
     Player
