@@ -101,6 +101,7 @@ CLASS PLAYER:
     METHOD INVALID_OPTION(emptySlotIndexes, row, col):
         if row, col not in emptySlotIndexes:
             return true
+        return false
     END MEHTOD    
 
     METHOD WIN:

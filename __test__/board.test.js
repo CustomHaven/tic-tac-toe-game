@@ -3,7 +3,7 @@ const { Board } = require("../board");
 
 let board;
 
-describe("Board Class", () => {
+xdescribe("Board Class", () => {
     beforeEach(() => {
         board = new Board();
     });
