@@ -6,25 +6,38 @@ class Player {
         this.mark = mark
     }
 
-    invalidOption(emptySlots, row, col) {
-        if (row >= 3 || col >= 3 || typeof(row) !== "number" || typeof(col) !== "number") {
-            console.log("ITS MORE THAN 3")
-            return true;
-        }
+    validOption(emptySlots, row, col) {
+        try {
+            row = Number(row);
+            col = Number(col);
 
-
-        if (emptySlots[row][col] === ".") {
+            if (isNaN(row) || isNaN(col) || row < 0 || col < 0 || row >= 3 || col >= 3) {
+                return false;
+            }
+            return emptySlots[row][col] === ".";
+        } catch (error) {
             return false;
         }
-
-        return true;
     }
 
     promptPlayer(emptySlots) {
-        console.log("Choose an empty slot.");
+        console.log("Choose an empty slot.", emptySlots);
 
-        const row = prompt("Enter the row number (0, 1, or 2): ");
-        const col = prompt("Enter the column number (0, 1, or 2): ");
+        let row = prompt("Enter the row number (0, 1, or 2): ");
+        let col = prompt("Enter the column number (0, 1, or 2): ");
+
+
+        const isValid = this.validOption(emptySlots, row, col);
+
+        if (!isValid) {
+            return this.promptPlayer(emptySlots);
+        } else {
+            return {
+                row: parseInt(row, 10),
+                col: parseInt(col, 10),
+                mark: this.mark
+            }
+        }
     }
 }
 
