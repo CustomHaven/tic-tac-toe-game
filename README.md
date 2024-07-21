@@ -62,3 +62,23 @@ To run the game locally on your web browser:
 - The frontend should be running and accessible on [8080](http://localhost:8080)
 - `ctrl + c` to stop the client running
 
+## Coverage Test
+
+Fully maintained and tested!
+
+```
+--------------------|---------|----------|---------|---------|-------------------
+File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------|---------|----------|---------|---------|-------------------
+All files           |    97.9 |    90.66 |     100 |   97.69 |                   
+ __test__           |     100 |      100 |     100 |     100 |                   
+  helpers.js        |     100 |      100 |     100 |     100 |                   
+ src                |   97.74 |    90.66 |     100 |    97.5 |                   
+  board.js          |   95.94 |       88 |     100 |   95.08 | 46,94,138         
+  frontendWindow.js |     100 |      100 |     100 |     100 |                   
+  game.js           |     100 |    92.85 |     100 |     100 | 45                
+  player.js         |     100 |      100 |     100 |     100 |                   
+--------------------|---------|----------|---------|---------|-------------------
+
+
+```

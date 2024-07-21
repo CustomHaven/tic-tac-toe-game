@@ -123,4 +123,15 @@ describe("Player Class", () => {
         });
     });
 
+    it("Test lose", () => {
+        const result = player.lose();
+        expect(result).toEqual("Player 1 has lost!");
+    });
+
+
+    it("Test win", () => {
+        const result = player.win();
+        expect(result).toEqual("Player 1 has won!");
+    });
+
 })

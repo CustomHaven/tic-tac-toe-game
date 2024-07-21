@@ -37,7 +37,9 @@ describe("Game Class", () => {
     });
 
     it("Selecting Game type tic-tac-toe", () => {
-        mockPrompt.mockReturnValueOnce("1");
+        mockPrompt
+            .mockReturnValueOnce("9")
+            .mockReturnValueOnce("1");
         
         game.cliSelection();
 
@@ -47,7 +49,10 @@ describe("Game Class", () => {
 
 
     it("Selecting Game type connect 4", () => {
-        mockPrompt.mockReturnValueOnce("2");
+        
+        mockPrompt
+            .mockReturnValueOnce("9")
+            .mockReturnValueOnce("2");
         
         game.cliSelection();
 
