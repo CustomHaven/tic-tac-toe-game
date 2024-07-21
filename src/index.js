@@ -20,8 +20,8 @@ if (game.window) {
     const playerTypeH2 = document.querySelectorAll(".playerType");
     const gameMainContainer = document.querySelector(".container");
 
-    const player1UI = playerTypeH2[0]
-    const player2UI = playerTypeH2[1]
+    const player1UI = playerTypeH2[0];
+    const player2UI = playerTypeH2[1];
 
     player1UI.textContent = game.player1.name;
     player2UI.textContent = game.player2.name;
@@ -31,7 +31,7 @@ if (game.window) {
 
 
 
-    // Functions to remove and change the current player display colours
+    // Functions to remove all player classes
     const removeAllPlayerClasses = () => {
         player1UI.classList.remove("playerToPlay");
         player1UI.classList.remove("playerToNotPlay");
@@ -39,6 +39,7 @@ if (game.window) {
         player2UI.classList.remove("playerToNotPlay");
     }
 
+    // Function to change the current player display colours
     const changePlayerClass = (turn) => {
         if (turn === game.player1.name) {
             removeAllPlayerClasses();
@@ -144,7 +145,7 @@ if (game.window) {
     
     }
 
-    // Call event listener for each div box
+    // LISTEN event listener for each div box listening for clicks
     divHolder.forEach((articles, rowIndex) => {
         articles.forEach((div, colIndex) => {
             div.addEventListener("mousedown", (e) => {
@@ -158,7 +159,7 @@ if (game.window) {
             div.addEventListener("mouseup", (e) => {
                 setTimeout(() => {
                     disableClick = false;
-                }, 25);
+                }, 100);
                 e.target.style.cursor = "grab";
 
                 if (!game.board.winCondition()) {
@@ -217,6 +218,7 @@ if (game.window) {
     })
 
 } else {
+    // Play the Game in the CLI
     const play = game.play();
     console.log(play);
 }
