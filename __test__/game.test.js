@@ -1,6 +1,6 @@
-const { Game } = require("../game");
-const { Player } = require("../player");
-const { Board } = require("../board");
+const { Game } = require("../src/game");
+const { Player } = require("../src/player");
+const { Board } = require("../src/board");
 
 jest.mock("prompt-sync", () => {
     const mockPrompt = jest.fn();
@@ -22,7 +22,7 @@ describe("Game Class", () => {
     });
 
     it("Constructor has 4 arguments", () => {
-        expect(Game.prototype.constructor.length).toBe(4);
+        expect(Game.prototype.constructor.length).toBe(5);
     });
 
     it("Player and Board instances are available", () => {

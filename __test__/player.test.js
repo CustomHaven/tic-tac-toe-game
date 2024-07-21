@@ -1,5 +1,5 @@
 const each = require("jest-each").default;
-const { Player } = require("../player");
+const { Player } = require("../src/player");
 
 // Mock the prompt function
 jest.mock("prompt-sync", () => {

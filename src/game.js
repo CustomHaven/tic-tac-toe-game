@@ -1,9 +1,11 @@
+const { Window } = require("./frontendWindow");
 const { Player } = require("./player");
 const { Board } = require("./board");
 
-class Game {
+class Game extends Window {
 
-    constructor(player1Name, player1Mark, player2Name, player2Mark) {
+    constructor(player1Name, player1Mark, player2Name, player2Mark, window) {
+        super(window);
         this.board = new Board();
         this.player1 = new Player(player1Name, player1Mark);
         this.player2 = new Player(player2Name, player2Mark);

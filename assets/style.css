@@ -1,0 +1,173 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --henny: "Henny Penny", system-ui, cursive;
+}
+
+body {
+  font-family: var(--henny);
+  font-weight: 400;
+  font-style: normal;
+  height: 100%;
+  background-image: url(./background.jpg);
+}
+
+header {
+  /* background-color: yellow; */
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  place-items: center;
+}
+
+nav {
+  margin: 0 auto;
+}
+
+.pageNav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pageNav ul li {
+  margin: 0 15px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #fff;
+  font-size: 32px;
+  padding: 10px 15px;
+  display: block;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: max-content;
+}
+
+/* Link Hover Effect */
+.navLink:hover {
+  background-color: #555; /* Darker background on hover */
+  color: #fff; /* White text color on hover */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 200px);
+  margin: 0 auto;
+}
+
+main {
+  text-align: center;
+}
+
+main .gameChoice {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+}
+
+.gameChoice button {
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.gameChoice button a {
+  text-decoration: none;
+  color: white;
+  font-family: var(--henny);
+}
+
+.btn-main {
+  background-color: #835d24;
+  border-radius: 100vh;
+  border: inherit;
+  letter-spacing: 1px;
+  font-weight: bolder;
+  box-shadow: 5px 10px 20px -5px #822323;
+}
+
+.containerTic div {
+  display: grid;
+  /* background-color: #3f00fb; */
+  grid-template-columns: 1fr 0.5fr 1fr;
+  grid-template-rows: 30px 0.2fr 1fr 30px;
+  position: relative;
+}
+
+.containerTic header {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 50px;
+}
+
+.playerToPlay {
+  color: #835d24;
+}
+
+.playerToNotPlay {
+  opacity: 0.3;
+}
+
+
+.ticTacToeContainer {
+  grid-column: 2;
+  grid-row: 3;
+  display: grid;
+  padding: 20px;
+  box-shadow: 0 4px 8px #3f00fb;
+  border-radius: 20px;
+}
+
+.ticTacToeContainer article {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* background-color: red; */
+
+}
+
+.ticTacToeContainer article .box {
+  display: block;
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: var(--henny);
+  font-size: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: grab;
+}
+
+
+@media only screen and (max-width: 750px) {
+  .navLink {
+    font-size: 24px;
+  }
+}
+
+
+@media only screen and (max-width: 550px) {
+  .pageNav ul li {
+    margin: 0 10px;
+  }
+}

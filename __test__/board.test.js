@@ -1,5 +1,5 @@
 const each = require("jest-each").default;
-const { Board } = require("../board");
+const { Board } = require("../src/board");
 
 let board;
 
