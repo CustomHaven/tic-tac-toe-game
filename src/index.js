@@ -11,9 +11,9 @@ if (game.window) {
     let markType = game.player1.mark;
 
     const divHolder = [];
+    let disableClick = false;
 
     let modalDiv, modalDivFirst, modalDivSecond, modalWinnerP, modalLoserP;
-
 
     const playAgainButton = document.createElement("button");
     const ticContainer = document.querySelector(".ticTacToeContainer");
@@ -132,6 +132,7 @@ if (game.window) {
             e.target.style.cursor = "grabbing";
             e.target.textContent = markType;
             game.board.makeMove(row, col, markType);
+
             if (!game.board.winCondition()) {
                 markType = markType === game.player1.mark ? game.player2.mark : game.player1.mark;
                 playerType = playerType === game.player1.name ? game.player2.name : game.player1.name;
@@ -139,25 +140,36 @@ if (game.window) {
             }
         
         }
-    
-        if (!game.board.winCondition()) {
-            if (game.board.isDraw()) {
-                setTimeout(() => {
-                    draw();
-                }, 10)
-            
-            }
-        }
+
     
     }
 
     // Call event listener for each div box
     divHolder.forEach((articles, rowIndex) => {
         articles.forEach((div, colIndex) => {
-            div.addEventListener("mousedown", (e) => handleGameClick(e, rowIndex, colIndex));
+            div.addEventListener("mousedown", (e) => {
+
+                if (!disableClick) {
+                    disableClick = true;
+                    handleGameClick(e, rowIndex, colIndex)
+                }
+            });
 
             div.addEventListener("mouseup", (e) => {
+                setTimeout(() => {
+                    disableClick = false;
+                }, 25);
                 e.target.style.cursor = "grab";
+
+                if (!game.board.winCondition()) {
+                    if (game.board.isDraw()) {
+                        setTimeout(() => {
+                            draw();
+                        }, 10)
+                    
+                    }
+                }
+
                 if (game.board.winCondition()) {
                     setTimeout(() => {
                         displayWinner(playerType);
@@ -169,29 +181,40 @@ if (game.window) {
 
 
     // Reset the game!
-    playAgainButton.addEventListener("click", () => {
-        game.reset(game.player1.name, game.player1.mark, game.player2.name, game.player2.mark);
+    playAgainButton.addEventListener("mousedown", () => {
+        if (!disableClick) {
+            disableClick = true;
+            game.reset(game.player1.name, game.player1.mark, game.player2.name, game.player2.mark);
 
-        playerType = game.player1.name;
-        markType = game.player1.mark;
-
-        removeAllPlayerClasses();
-        player1UI.classList.add("playerToPlay");
-        player2UI.classList.add("playerToNotPlay");
-
-        modalDiv.remove();
-        modalDivFirst.remove();
-        modalDivSecond.remove();
-        modalWinnerP.remove();
-        modalLoserP.remove();
-        playAgainButton.remove();
-
-        for (const row of divHolder) {
-            for (const col of row) {
-                col.textContent = "";
+            playerType = game.player1.name;
+            markType = game.player1.mark;
+    
+            removeAllPlayerClasses();
+            player1UI.classList.add("playerToPlay");
+            player2UI.classList.add("playerToNotPlay");
+    
+            modalDiv.remove();
+            modalDivFirst.remove();
+            modalDivSecond.remove();
+            modalWinnerP.remove();
+            if (modalLoserP) {
+                modalLoserP.remove();
+            }
+            playAgainButton.remove();
+    
+            for (const row of divHolder) {
+                for (const col of row) {
+                    col.textContent = "";
+                }
             }
         }
     });
+
+    playAgainButton.addEventListener("mouseup", () => {
+        setTimeout(() => {
+            disableClick = false;
+        }, 100);
+    })
 
 } else {
     const play = game.play();
