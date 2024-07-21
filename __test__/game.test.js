@@ -25,11 +25,37 @@ describe("Game Class", () => {
         expect(Game.prototype.constructor.length).toBe(7);
     });
 
+    it("reset method is functional", () => {
+        expect(game.reset instanceof Function).toBe(true);
+        expect(Game.prototype.reset.length).toBe(6);
+    });
+
     it("Player and Board instances are available", () => {
         expect(game.player1 instanceof Player).toBe(true);
         expect(game.player2 instanceof Player).toBe(true);
         expect(game.board instanceof Board).toBe(true);
     });
+
+    it("Selecting Game type tic-tac-toe", () => {
+        mockPrompt.mockReturnValueOnce("1");
+        
+        game.cliSelection();
+
+        expect(game.board.row).toBe(3);
+        expect(game.board.column).toBe(3);
+    });
+
+
+    it("Selecting Game type connect 4", () => {
+        mockPrompt.mockReturnValueOnce("2");
+        
+        game.cliSelection();
+
+        expect(game.board.row).toBe(6);
+        expect(game.board.column).toBe(7);
+    })
+
+
 
     it("should handle Player 1 winning the game", () => {
         mockPrompt

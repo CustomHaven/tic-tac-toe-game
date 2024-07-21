@@ -229,6 +229,7 @@ if (game.window) {
 
 } else {
     // Play the Game in the CLI
+    game.cliSelection();
     const play = game.play();
     console.log(play);
 }
