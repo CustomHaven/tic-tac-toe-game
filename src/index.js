@@ -144,7 +144,7 @@ if (game.window) {
             if (game.board.isDraw()) {
                 setTimeout(() => {
                     draw();
-                }, 300)
+                }, 10)
             
             }
         }
@@ -161,7 +161,7 @@ if (game.window) {
                 if (game.board.winCondition()) {
                     setTimeout(() => {
                         displayWinner(playerType);
-                    }, 300)
+                    }, 10)
                 }
             });
         })
