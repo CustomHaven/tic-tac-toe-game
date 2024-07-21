@@ -1,9 +1,11 @@
 const prompt = require("prompt-sync")();
 
 class Player {
-    constructor(name, mark) {
+    constructor(name, mark, maxRow, maxColumn) {
         this.name = name
         this.mark = mark
+        this.maxRow = maxRow;
+        this.maxColumn = maxColumn;
     }
 
     validOption(emptySlots, row, col) {
@@ -11,7 +13,7 @@ class Player {
             row = Number(row);
             col = Number(col);
 
-            if (isNaN(row) || isNaN(col) || row < 0 || col < 0 || row >= 3 || col >= 3) {
+            if (isNaN(row) || isNaN(col) || row < 0 || col < 0 || row >= this.maxRow || col >= this.maxColumn) {
                 return false;
             }
             return emptySlots[row][col] === ".";
@@ -23,8 +25,8 @@ class Player {
     promptPlayer(emptySlots) {
         console.log("Choose an empty slot.", emptySlots);
 
-        let row = prompt("Enter the row number (0, 1, or 2): ");
-        let col = prompt("Enter the column number (0, 1, or 2): ");
+        let row = prompt(`Enter the row number (0 to ${this.maxRow -1}): `);
+        let col = prompt(`Enter the column number (0 to ${this.maxColumn -1}): `);
 
 
         const isValid = this.validOption(emptySlots, row, col);
@@ -41,11 +43,11 @@ class Player {
     }
 
     win() {
-        return `${this.name} has won!`
+        return `${this.name} has won!`;
     }
 
     lose() {
-        return `${this.name} has lost!`
+        return `${this.name} has lost!`;
     }
 
 }

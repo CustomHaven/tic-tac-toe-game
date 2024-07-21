@@ -21,8 +21,8 @@ describe("Game Class", () => {
         expect(game.constructor instanceof Function).toBe(true);
     });
 
-    it("Constructor has 4 arguments", () => {
-        expect(Game.prototype.constructor.length).toBe(5);
+    it("Constructor has 7 arguments", () => {
+        expect(Game.prototype.constructor.length).toBe(7);
     });
 
     it("Player and Board instances are available", () => {

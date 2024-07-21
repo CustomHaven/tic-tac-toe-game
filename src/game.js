@@ -4,15 +4,15 @@ const { Board } = require("./board");
 
 class Game extends Window {
 
-    constructor(player1Name, player1Mark, player2Name, player2Mark, window) {
+    constructor(player1Name, player1Mark, player2Name, player2Mark, row, col, window) {
         super(window);
-        this.reset(player1Name, player1Mark, player2Name, player2Mark)
+        this.reset(player1Name, player1Mark, player2Name, player2Mark, row, col)
     }
 
-    reset(player1Name, player1Mark, player2Name, player2Mark) {
-        this.board = new Board();
-        this.player1 = new Player(player1Name, player1Mark);
-        this.player2 = new Player(player2Name, player2Mark);
+    reset(player1Name, player1Mark, player2Name, player2Mark, row, col) {
+        this.board = new Board(row, col);
+        this.player1 = new Player(player1Name, player1Mark, row, col);
+        this.player2 = new Player(player2Name, player2Mark, row, col);
     }
 
     play() {

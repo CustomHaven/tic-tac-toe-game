@@ -2484,6 +2484,7 @@ class Board {
     constructor(row=3, column=3) {
         this.row = row;
         this.column = column;
+        console.log("INSIDE BOARD!", this.column)
         this.empty = ".";
         this.board = this.initilise2DArray();
         this.count = 0;
@@ -2528,6 +2529,70 @@ class Board {
     }
 
     winCondition() {
+        if (this.board.length > 3) {
+            console.log("BOARD IS");
+            console.log(this.board);
+            console.log("first")
+            return this.connect4WinCondition();
+        } else {
+            return this.ticTacToeWinCondition();
+        }
+    }
+
+    connect4WinCondition() {
+        const connect = 4;
+        // Check horizontal win
+        for (let r = 0; r < this.row; r++) {
+            for (let c = 0; c <= this.column - connect; c++) {
+                if (this.board[r][c] !== this.empty &&
+                    this.board[r][c] === this.board[r][c + 1] &&
+                    this.board[r][c + 1] === this.board[r][c + 2] &&
+                    this.board[r][c + 2] === this.board[r][c + 3]) {
+                    return true;
+                }
+            }
+        }
+
+        // Check vertical win
+        for (let c = 0; c < this.column; c++) {
+            for (let r = 0; r <= this.row - connect; r++) {
+                if (this.board[r][c] !== this.empty &&
+                    this.board[r][c] === this.board[r + 1][c] &&
+                    this.board[r + 1][c] === this.board[r + 2][c] &&
+                    this.board[r + 2][c] === this.board[r + 3][c]) {
+                    return true;
+                }
+            }
+        }
+
+        // Check diagonal (bottom-left to top-right) win
+        for (let r = 0; r <= this.row - connect; r++) {
+            for (let c = 0; c <= this.column - connect; c++) {
+                if (this.board[r][c] !== this.empty &&
+                    this.board[r][c] === this.board[r + 1][c + 1] &&
+                    this.board[r + 1][c + 1] === this.board[r + 2][c + 2] &&
+                    this.board[r + 2][c + 2] === this.board[r + 3][c + 3]) {
+                    return true;
+                }
+            }
+        }
+
+        // Check diagonal (top-left to bottom-right) win
+        for (let r = 3; r < this.row; r++) {
+            for (let c = 0; c <= this.column - connect; c++) {
+                if (this.board[r][c] !== this.empty &&
+                    this.board[r][c] === this.board[r - 1][c + 1] &&
+                    this.board[r - 1][c + 1] === this.board[r - 2][c + 2] &&
+                    this.board[r - 2][c + 2] === this.board[r - 3][c + 3]) {
+                    return true;
+                }
+            }
+        }
+
+        return false;        
+    }
+
+    ticTacToeWinCondition() {
         for (let r = 0; r < this.row; r++) {
             if (this.board[r][0] !== this.empty &&
                 this.board[r][0] === this.board[r][1] &&
@@ -2578,15 +2643,15 @@ const { Board } = require("./board");
 
 class Game extends Window {
 
-    constructor(player1Name, player1Mark, player2Name, player2Mark, window) {
+    constructor(player1Name, player1Mark, player2Name, player2Mark, row, col, window) {
         super(window);
-        this.reset(player1Name, player1Mark, player2Name, player2Mark)
+        this.reset(player1Name, player1Mark, player2Name, player2Mark, row, col)
     }
 
-    reset(player1Name, player1Mark, player2Name, player2Mark) {
-        this.board = new Board();
-        this.player1 = new Player(player1Name, player1Mark);
-        this.player2 = new Player(player2Name, player2Mark);
+    reset(player1Name, player1Mark, player2Name, player2Mark, row, col) {
+        this.board = new Board(row, col);
+        this.player1 = new Player(player1Name, player1Mark, row, col);
+        this.player2 = new Player(player2Name, player2Mark, row, col);
     }
 
     play() {
@@ -2630,13 +2695,23 @@ module.exports = {
 },{"./board":9,"./frontendWindow":10,"./player":13}],12:[function(require,module,exports){
 const { Game } = require("./game");
 
+let hiddenRow, hiddenColumn
 
+if (typeof(window)) {
 
+}
 // Play the game through CLI or through GUI PAGE
-const game = new Game("Player 1", "X", "Player 2", "O", typeof(window) === "object" ? window : undefined);
+const game = new Game("Player 1", "X", "Player 2", "O", 6, 7, typeof(window) === "object" ? window : undefined);
 
 if (game.window) {
     // Initial set up for the front end
+
+    hiddenRow = document.querySelector(".row");
+    hiddenColumn = document.querySelector(".column");
+    console.log("HIDDEN ROW", hiddenRow);
+
+    game.reset("Player 1", "X", "Player 2", "O", parseInt(hiddenRow.textContent), parseInt(hiddenColumn.textContent));
+
     let playerType = game.player1.name;
     let markType = game.player1.mark;
 
@@ -2857,9 +2932,11 @@ if (game.window) {
 const prompt = require("prompt-sync")();
 
 class Player {
-    constructor(name, mark) {
+    constructor(name, mark, maxRow, maxColumn) {
         this.name = name
         this.mark = mark
+        this.maxRow = maxRow;
+        this.maxColumn = maxColumn;
     }
 
     validOption(emptySlots, row, col) {
@@ -2867,7 +2944,7 @@ class Player {
             row = Number(row);
             col = Number(col);
 
-            if (isNaN(row) || isNaN(col) || row < 0 || col < 0 || row >= 3 || col >= 3) {
+            if (isNaN(row) || isNaN(col) || row < 0 || col < 0 || row >= this.maxRow || col >= this.maxColumn) {
                 return false;
             }
             return emptySlots[row][col] === ".";
@@ -2879,8 +2956,8 @@ class Player {
     promptPlayer(emptySlots) {
         console.log("Choose an empty slot.", emptySlots);
 
-        let row = prompt("Enter the row number (0, 1, or 2): ");
-        let col = prompt("Enter the column number (0, 1, or 2): ");
+        let row = prompt(`Enter the row number (0 to ${this.maxRow -1}): `);
+        let col = prompt(`Enter the column number (0 to ${this.maxColumn -1}): `);
 
 
         const isValid = this.validOption(emptySlots, row, col);
@@ -2897,11 +2974,11 @@ class Player {
     }
 
     win() {
-        return `${this.name} has won!`
+        return `${this.name} has won!`;
     }
 
     lose() {
-        return `${this.name} has lost!`
+        return `${this.name} has lost!`;
     }
 
 }

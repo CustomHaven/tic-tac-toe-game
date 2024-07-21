@@ -1,12 +1,22 @@
 const { Game } = require("./game");
 
+let hiddenRow, hiddenColumn
 
+if (typeof(window)) {
 
+}
 // Play the game through CLI or through GUI PAGE
-const game = new Game("Player 1", "X", "Player 2", "O", typeof(window) === "object" ? window : undefined);
+const game = new Game("Player 1", "X", "Player 2", "O", 6, 7, typeof(window) === "object" ? window : undefined);
 
 if (game.window) {
     // Initial set up for the front end
+
+    hiddenRow = document.querySelector(".row");
+    hiddenColumn = document.querySelector(".column");
+    console.log("HIDDEN ROW", hiddenRow);
+
+    game.reset("Player 1", "X", "Player 2", "O", parseInt(hiddenRow.textContent), parseInt(hiddenColumn.textContent));
+
     let playerType = game.player1.name;
     let markType = game.player1.mark;
 

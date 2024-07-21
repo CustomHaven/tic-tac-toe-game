@@ -40,7 +40,7 @@ describe("Player Class", () => {
     it("Constructor has 2 arguments", () => {
         expect(player.constructor instanceof Function).toEqual(true);
         // to have 2 arguments
-        expect(Player.prototype.constructor.length).toBe(2);
+        expect(Player.prototype.constructor.length).toBe(4);
 
     });
 
