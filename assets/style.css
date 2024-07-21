@@ -64,6 +64,7 @@ nav {
   align-items: center;
   height: calc(100vh - 200px);
   margin: 0 auto;
+  position: relative;
 }
 
 main {
@@ -99,15 +100,69 @@ main .gameChoice {
   box-shadow: 5px 10px 20px -5px #822323;
 }
 
-.containerTic div {
+.contentWrapper div {
   display: grid;
-  /* background-color: #3f00fb; */
+  position: relative;
   grid-template-columns: 1fr 0.5fr 1fr;
   grid-template-rows: 30px 0.2fr 1fr 30px;
-  position: relative;
+  z-index: 10;
 }
 
-.containerTic header {
+.modalDiv {
+  position: absolute;
+  background-color: grey;
+  border: 3px solid black;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 30%;
+  height: 30%;
+  margin: auto;
+  width: max-content;
+  -webkit-box-shadow: 0px 0px 400px 500px rgba(60, 60, 59, 1);
+  box-shadow: 0px 0px 400px 500px rgba(60, 60, 59, 1);
+}
+
+.modalDiv > :first-child {
+  /* background-color: green; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+.modalDiv > :first-child * {
+  padding: 20px;
+  border: 1px solid #555;
+  background-color: #835d24;
+  font-size: 24px;
+  box-shadow: 5px 10px 20px -5px #822323;
+  margin: 0 10px;
+  color: #fff;
+}
+
+.modalDiv > :last-child {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modalDiv :last-child button {
+  padding: 10px 25px;
+  background-color: #835d24;
+  font-family: var(--henny);
+  font-size: 24px;
+  box-shadow: 5px 10px 20px -5px #822323;
+  color: #fff;
+}
+
+.contentWrapper header {
   grid-column: 1 / -1;
   grid-row: 2;
   display: flex;

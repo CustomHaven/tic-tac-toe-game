@@ -6,6 +6,10 @@ class Game extends Window {
 
     constructor(player1Name, player1Mark, player2Name, player2Mark, window) {
         super(window);
+        this.reset(player1Name, player1Mark, player2Name, player2Mark)
+    }
+
+    reset(player1Name, player1Mark, player2Name, player2Mark) {
         this.board = new Board();
         this.player1 = new Player(player1Name, player1Mark);
         this.player2 = new Player(player2Name, player2Mark);
